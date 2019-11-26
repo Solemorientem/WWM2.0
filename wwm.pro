@@ -28,13 +28,15 @@ SOURCES += \
         mainwindow.cpp \
     model.cpp \
     frage.cpp \
-    frageninterval.cpp
+    frageninterval.cpp \
+    antworten.cpp
 
 HEADERS += \
         mainwindow.h \
     model.h \
     frage.h \
-    frageninterval.h
+    frageninterval.h \
+    antworten.h
 
 FORMS += \
         mainwindow.ui

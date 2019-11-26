@@ -2,7 +2,6 @@
 #define FRAGEINTERVAL_H
 
 #include "frage.h"
-#include <vector>
 
 
 class FragenInterval

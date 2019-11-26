@@ -21,3 +21,11 @@ void Frage::setFrage(QString frage) {
     this->frage = frage;
 }
 
+std::vector<Antworten> Frage::getAntwortenListe() {
+    return antwortenListe;
+}
+
+void Frage::setAntwortenListe(Antworten antwort) {
+    this->antwortenListe.push_back(antwort);
+}
+
