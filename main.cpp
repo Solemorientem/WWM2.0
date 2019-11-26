@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include "model.h"
+#include "controller.h"
+#include <future>
 
 int main(int argc, char *argv[])
 {
@@ -8,10 +10,9 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    Model model("C:/Users/Simon Gatzen/Documents/WWM/wwmDB.db");
+    Controller controller;
 
-    model.getInfo();
-
+    auto f = std::async(&Controller::getRandomFrage, &controller);
 
     return a.exec();
 }

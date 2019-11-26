@@ -20,8 +20,8 @@
 class Model
 {
 public:
-    Model(const QString& path);
-    void getInfo();
+    Model();
+    FragenInterval getInfo();
     void closeDB();
     QSqlDatabase db;
 private:

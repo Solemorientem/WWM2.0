@@ -1,6 +1,6 @@
 #include "model.h"
 
-Model::Model(const QString& path)
+Model::Model()
 {
     const QString DRIVER("QSQLITE");
 
@@ -8,7 +8,7 @@ Model::Model(const QString& path)
         {
             db = QSqlDatabase::addDatabase(DRIVER);
 
-            db.setDatabaseName(path);
+            db.setDatabaseName("C:/Users/sgatzen/Documents/WWM2.0/wwmDB.db");
 
             if(!db.open())
                 qWarning() << "Model::DatabaseConnect - ERROR: " << db.lastError().text();
@@ -17,7 +17,7 @@ Model::Model(const QString& path)
             qWarning() << "Model::DatabaseConnect - ERROR: no driver " << DRIVER << " available";
 }
 
-void Model::getInfo() {
+FragenInterval Model::getInfo() {
    FragenInterval fragenInterval;
 
    if(!db.open())
@@ -26,11 +26,11 @@ void Model::getInfo() {
    QSqlQuery query = db.exec("SELECT fragen.id, fragen.frage, antworten.id, antworten.antwort, antworten.richtig, antworten.fk_fragen FROM fragen LEFT JOIN antworten ON fragen.id = antworten.fk_fragen ORDER BY antworten.id ASC;");
    if(!query.lastError().isValid())
    {
-       Frage frage;
+
        qDebug()<<"works!";
        //int durchläufe = 1;
        while(query.next()) {
-
+           Frage frage;
            if(query.value("fragen.id") == query.value("antworten.fk_fragen")) {
 
                frage.setId(query.value("fragen.id").toInt());
@@ -46,21 +46,20 @@ void Model::getInfo() {
                    antwort.setRichtig(query.value("antworten.richtig").toBool());
                    frage.setAntwortenListe(antwort);
                }
-
+                fragenInterval.setFragenListe(frage);
            }
+#ifdef Test
        qDebug() << query.value("id").toString();
        qDebug() << query.value("frage").toString();
        qDebug() << query.value("antworten.id").toString();
+#endif
        }
-
-
-
    }
    else
    {
         qDebug()<<"---db failed to open! , error: "<<query.lastError().text();
    }
-   db.close();
+      return fragenInterval;
 }
 
 void Model::closeDB() {
